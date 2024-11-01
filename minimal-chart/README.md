@@ -40,4 +40,3 @@ repositories:
 
 
 
-This structured format clearly outlines each step in a numbered format, making it easier for users to follow the instructions. You can save this content as `README.md` for your project.
