@@ -25,10 +25,15 @@ docker run -it --rm \
   alpine/helm package /charts
 
 
+ docker run -it --rm   -v /home/user/.config/helm/repositories.yaml:/config/repositories.yaml   alpine/helm registry login 192.168.0.133:5000 --username admin --password admin123 --insecure
+
+
+
+
 docker run -it --rm \
   -v /home/user/output:/apps \
   -v /home/user/.config/helm/repositories.yaml:/config/repositories.yaml \
-  alpine/helm push /apps/minimal-chart-0.1.0.tgz oci://172.17.0.2:8081/repository/helm-snapshots --repository-config /config/repositories.yaml
+  alpine/helm push /apps/minimal-chart-0.1.0.tgz oci://192.168.0.133:5000 --insecure --repository-config /config/repositories.yaml
 
 
 apiVersion: v1
@@ -40,3 +45,9 @@ repositories:
 
 
 
+apiVersion: v1
+repositories:
+  - name: docker-snapshot
+    url: oci://192.168.0.133:5000
+    username: admin
+    password: admin123
